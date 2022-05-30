@@ -1,4 +1,4 @@
-name: Publish to the GitHub npm registry
+name: Publish to the NPM registry
 
 on:
   push:
@@ -13,7 +13,7 @@ on:
 jobs:
   # Make sure build/ci work properly
   publish:
-    name: Publish to private GitHub NPM registry
+    name: Publish
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
