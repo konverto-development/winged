@@ -16,19 +16,6 @@ export type GroupingResult = Promise<
   [generatedFiles: string[], malformedVectorFiles: string[]]
 >
 
-/**
- * Reads features from the given GeoJSONL files and groupes them by the
- * specified properties.
- * @param vectorFilePaths The file paths to the GeoJSONL files.
- * @param outputDir The destination for generated GeoJSONL files,
- * without trailing slash.
- * @param properties The properties by which to group the features.
- * @param fileExtension The extension used for the generated files.
- * Defaults to `.geojsonl`.
- * @param encoding The encoding used for reading and writing files.
- * Defaults to `utf-8`.
- * @returns The file paths to the generated GeoJSONL files.
- */
 export type GroupingFunction = (
   vectorFiles: GisFile[],
   outputDir: string,
@@ -92,6 +79,16 @@ const _groupFeatures: GroupingFunctionRequired = async (
   return [generatedFiles, [...malformedVectorFiles]]
 }
 
+/**
+ * Reads features from the given GeoJSONL files and groupes them by the
+ * specified properties.
+ * @param vectorFilePaths The file paths to the GeoJSONL files.
+ * @param outputDir The destination for generated GeoJSONL files,
+ * without trailing slash.
+ * @param properties The properties by which to group the features.
+ * @param options Options to tune the grouping process.
+ * @returns The file paths to the generated GeoJSONL files.
+ */
 export const groupFeatures: GroupingFunction = async (
   vectorFiles,
   outputDir,
