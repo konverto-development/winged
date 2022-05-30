@@ -1,6 +1,6 @@
 # winged
 
-A blazingly fast GeoJSONL processor
+A blazingly fast GeoJSONL processor to group features
 
 ## Getting started
 
