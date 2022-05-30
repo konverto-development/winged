@@ -21,7 +21,5 @@ dist
 .vscode
 
 # Test files
-*.geojson*
-*.geotiff
-*.tiff
 !samples/*
+__tests__/out
