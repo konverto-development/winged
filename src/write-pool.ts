@@ -1,8 +1,11 @@
 import { mkdirSync } from 'fs'
 import path from 'path'
-import type { StringDictionary } from './types'
 import type { BufferedWriteStream } from './stream'
 import { createBufferedWriteStream } from './stream'
+
+export type StringDictionary<T = unknown> = {
+  [index: string]: T
+}
 
 const crs = 'urn:ogc:def:crs:OGC:1.3:CRS84'
 

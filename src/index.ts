@@ -1,14 +1,20 @@
 import { once } from 'events'
-import { createReadStream } from 'fs'
-import type { Feature } from 'geojson'
-import readline from 'node:readline'
-import type { GisFile, GroupingOptions } from './types'
+import { createLineReader, extractProperties, groupHash } from './utils'
 import WritePool from './write-pool'
 
-const defaultOptions: Required<GroupingOptions> = {
-  toGeoJson: false,
-  encoding: 'utf-8'
+export type GisFile = {
+  name: string
+  path: string
 }
+
+export type GroupingOptions = {
+  toGeoJson?: boolean
+  encoding?: BufferEncoding
+}
+
+export type GroupingResult = Promise<
+  [generatedFiles: string[], malformedVectorFiles: string[]]
+>
 
 /**
  * Reads features from the given GeoJSONL files and groupes them by the
@@ -23,41 +29,49 @@ const defaultOptions: Required<GroupingOptions> = {
  * Defaults to `utf-8`.
  * @returns The file paths to the generated GeoJSONL files.
  */
-export const groupFeatures = async (
+export type GroupingFunction = (
   vectorFiles: GisFile[],
   outputDir: string,
   properties: string[],
   options?: GroupingOptions
-): Promise<[generatedFiles: string[], malformedVectorFiles: string[]]> => {
-  const mergedOptions = {
-    ...defaultOptions,
-    ...options
-  }
-  const fileExtension = mergedOptions.toGeoJson ? '.geojson' : '.geojsonl'
+) => GroupingResult
+
+type GroupingFunctionRequired = (
+  vectorFiles: GisFile[],
+  outputDir: string,
+  properties: string[],
+  options: Required<GroupingOptions>
+) => GroupingResult
+
+const defaultOptions: Required<GroupingOptions> = {
+  toGeoJson: false,
+  encoding: 'utf-8'
+}
+
+const _groupFeatures: GroupingFunctionRequired = async (
+  vectorFiles,
+  outputDir,
+  properties,
+  options
+) => {
+  const fileExtension = options.toGeoJson ? '.geojson' : '.geojsonl'
   const malformedVectorFiles = new Set<string>()
-  const pool = new WritePool(mergedOptions.encoding, mergedOptions.toGeoJson)
+  const pool = new WritePool(options.encoding, options.toGeoJson)
   // Read multiple vector files concurrently
   const readings = vectorFiles.map(async file => {
-    const readStream = createReadStream(file.path, mergedOptions.encoding)
-    const rl = readline.createInterface({
-      input: readStream,
-      /* Consider \r followed by \n as a single newline
-      https://nodejs.org/dist/latest/docs/api/readline.html#readlinepromisescreateinterfaceoptions */
-      crlfDelay: Infinity
-    })
-    rl.line
+    const lineReader = createLineReader(file.path, options.encoding)
     /* Process each line
     If some previous line processing triggered an abortion,
     don't even start processing remanent lines */
     let abort = false
-    rl.on('line', line => {
+    lineReader.on('line', line => {
       if (abort) {
         return
       }
       const values = extractProperties(line, properties)
       if (!values) {
         abort = true
-        rl.close()
+        lineReader.close()
         return
       }
       const hash = groupHash(values)
@@ -65,7 +79,7 @@ export const groupFeatures = async (
       // Write the unmodified line
       pool.write(filePathOut, line)
     })
-    await once(rl, 'close')
+    await once(lineReader, 'close')
     // If the read stream was closed because of abortion,
     // mark the input vector file as malformed
     if (abort) {
@@ -78,24 +92,15 @@ export const groupFeatures = async (
   return [generatedFiles, [...malformedVectorFiles]]
 }
 
-/** Parses the given string as a GeoJSON feature and extract the values from
- * the given properties. Shortcuts to `undefined` if at least one feature does
- * not have all the given properties. */
-const extractProperties = (
-  featureString: string,
-  properties: string[]
-): unknown[] | undefined => {
-  const feature: Feature = JSON.parse(featureString)
-  const values = Array(properties.length)
-  for (let i = 0; i < properties.length; i += 1) {
-    const property = properties[i]
-    const value = feature.properties?.[property]
-    if (value === undefined) {
-      return undefined
-    }
-    values[i] = value
+export const groupFeatures: GroupingFunction = async (
+  vectorFiles,
+  outputDir,
+  properties,
+  options?
+) => {
+  const mergedOptions = {
+    ...defaultOptions,
+    ...options
   }
-  return values
+  return await _groupFeatures(vectorFiles, outputDir, properties, mergedOptions)
 }
-
-const groupHash = (values: unknown[]): string => values.join('-')
