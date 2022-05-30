@@ -1,0 +1,4 @@
+{"type":"Feature","properties":{"name":"Seattle Mariners","show_on_map":true},"geometry":{"type":"Point","coordinates":[-104.99404,39.75621]}}
+{"type":"Feature","properties":{"name":"Colorado Rockies","show_on_map":false},"geometry":{"type":"Point","coordinates":[-104.98404,39.74621]}}
+{"type":"Feature","properties":{"name":"Oakland A's","show_on_map":true},"geometry":{"type":"Point","coordinates":[-104.99404,39.75621]}}
+{"type":"Feature","properties":{"name":"San Francisco Giants","show_on_map":true},"geometry":{"type":"Point","coordinates":[-104.98404,39.74621]}}

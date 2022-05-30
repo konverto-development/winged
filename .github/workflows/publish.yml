@@ -1,0 +1,47 @@
+name: Publish to the GitHub npm registry
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**/*.md'
+
+jobs:
+  # Make sure build/ci work properly
+  publish:
+    name: Publish to private GitHub NPM registry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: corepack enable
+      - name: Check release definitions
+        run: yarn version check
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - name: Restore yarn cache
+        uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-cache-folder-${{ hashFiles('**/yarn.lock', '.yarnrc.yml') }}
+          restore-keys: |
+            yarn-cache-folder-
+      - name: Fetch and link dependencies
+        run: yarn
+      - name: Test
+        run: yarn test
+      - name: Set config for publishing
+        run: |
+          yarn config set npmPublishRegistry https://npm.pkg.github.com
+          yarn config set 'npmRegistries["https://npm.pkg.github.com"].npmAuthToken' $GPR_TOKEN
+        env:
+          GPR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish
+        run: yarn npm publish --access restricted
