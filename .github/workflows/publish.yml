@@ -4,8 +4,11 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - '**/*.md'
+    paths:
+      # New version to be published
+      - package.json
+      # Tests were changed and may be passed now
+      - __tests__/**/*
 
 jobs:
   # Make sure build/ci work properly
@@ -39,9 +42,8 @@ jobs:
         run: yarn test
       - name: Set config for publishing
         run: |
-          yarn config set npmPublishRegistry https://npm.pkg.github.com
-          yarn config set 'npmRegistries["https://npm.pkg.github.com"].npmAuthToken' $GPR_TOKEN
+          yarn config set npmAuthToken $GPR_TOKEN
         env:
-          GPR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish
-        run: yarn npm publish --access restricted
+        run: yarn npm publish --access public
