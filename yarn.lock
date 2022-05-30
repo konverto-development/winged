@@ -394,18 +394,18 @@ __metadata:
   resolution: "@devgioele/winged@workspace:."
   dependencies:
     "@types/geojson": ^7946.0.8
-    "@types/jest": ^27.5.1
-    "@types/node": ^17.0.31
-    esbuild: ^0.14.39
-    eslint: ^8.16.0
-    eslint-config-prettier: ^8.5.0
-    eslint-plugin-github: ^4.3.6
-    eslint-plugin-jest: ^26.2.2
-    jest: ^28.0.3
-    prettier: ^2.6.2
-    rimraf: ^3.0.2
-    ts-jest: ^28.0.1
-    typescript: ^4.6.4
+    "@types/jest": 27.5.1
+    "@types/node": 17.0.36
+    esbuild: 0.14.42
+    eslint: 8.16.0
+    eslint-config-prettier: 8.5.0
+    eslint-plugin-github: 4.3.6
+    eslint-plugin-jest: 26.4.5
+    jest: 28.1.0
+    prettier: 2.6.2
+    rimraf: 3.0.2
+    ts-jest: 28.0.3
+    typescript: 4.7.2
   languageName: unknown
   linkType: soft
 
@@ -914,7 +914,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:^27.5.1":
+"@types/jest@npm:27.5.1":
   version: 27.5.1
   resolution: "@types/jest@npm:27.5.1"
   dependencies:
@@ -938,7 +938,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^17.0.31":
+"@types/node@npm:*, @types/node@npm:17.0.36":
   version: 17.0.36
   resolution: "@types/node@npm:17.0.36"
   checksum: 11055fde0a1e1421113849b5e32c7022911efc0be670729947bf0162970e79962d804b1eb8a9afb291380cac97cf0e684511415d586ae5fe1560322c940fe188
@@ -2013,7 +2013,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.14.39":
+"esbuild@npm:0.14.42":
   version: 0.14.42
   resolution: "esbuild@npm:0.14.42"
   dependencies:
@@ -2112,7 +2112,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:>=8.0.0, eslint-config-prettier@npm:^8.5.0":
+"eslint-config-prettier@npm:8.5.0, eslint-config-prettier@npm:>=8.0.0":
   version: 8.5.0
   resolution: "eslint-config-prettier@npm:8.5.0"
   peerDependencies:
@@ -2180,7 +2180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-github@npm:^4.3.6":
+"eslint-plugin-github@npm:4.3.6":
   version: 4.3.6
   resolution: "eslint-plugin-github@npm:4.3.6"
   dependencies:
@@ -2237,7 +2237,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:^26.2.2":
+"eslint-plugin-jest@npm:26.4.5":
   version: 26.4.5
   resolution: "eslint-plugin-jest@npm:26.4.5"
   dependencies:
@@ -2328,7 +2328,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.16.0":
+"eslint@npm:8.16.0":
   version: 8.16.0
   resolution: "eslint@npm:8.16.0"
   dependencies:
@@ -3679,7 +3679,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^28.0.3":
+"jest@npm:28.1.0":
   version: 28.1.0
   resolution: "jest@npm:28.1.0"
   dependencies:
@@ -4414,7 +4414,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.2.1, prettier@npm:^2.6.2":
+"prettier@npm:2.6.2, prettier@npm:^2.2.1":
   version: 2.6.2
   resolution: "prettier@npm:2.6.2"
   bin:
@@ -4607,7 +4607,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:^3.0.0, rimraf@npm:^3.0.2":
+"rimraf@npm:3.0.2, rimraf@npm:^3.0.0, rimraf@npm:^3.0.2":
   version: 3.0.2
   resolution: "rimraf@npm:3.0.2"
   dependencies:
@@ -5005,7 +5005,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^28.0.1":
+"ts-jest@npm:28.0.3":
   version: 28.0.3
   resolution: "ts-jest@npm:28.0.3"
   dependencies:
@@ -5098,7 +5098,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.6.4":
+"typescript@npm:4.7.2":
   version: 4.7.2
   resolution: "typescript@npm:4.7.2"
   bin:
@@ -5108,7 +5108,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.6.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.7.2#~builtin<compat/typescript>":
   version: 4.7.2
   resolution: "typescript@patch:typescript@npm%3A4.7.2#~builtin<compat/typescript>::version=4.7.2&hash=7ad353"
   bin:
