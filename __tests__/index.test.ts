@@ -85,7 +85,6 @@ test('Convert to GeoJSON - simple', async () => {
     ['show_on_map'],
     { toGeoJson: true }
   )
-  // Expect all files to contain a valid JSON object
   const { error } = allContainValidJson(generatedFiles)
   expect(error).toBeUndefined()
 })
@@ -102,7 +101,6 @@ test('Convert to GeoJSON - simple2', async () => {
     ['show_on_map'],
     { toGeoJson: true }
   )
-  // Expect all files to contain a valid JSON object
   const { error } = allContainValidJson(generatedFiles)
   expect(error).toBeUndefined()
 })
@@ -119,7 +117,6 @@ test('Convert to GeoJSON - us', async () => {
     ['STATE'],
     { toGeoJson: true }
   )
-  // Expect all files to contain a valid JSON object
   const { error } = allContainValidJson(generatedFiles)
   expect(error).toBeUndefined()
 })

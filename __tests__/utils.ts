@@ -24,7 +24,10 @@ export const allContainValidJson = (filePaths: string[]): StdResult => {
   for (const filePath of filePaths) {
     const { error } = containsValidJson(filePath)
     if (error) {
-      return { success: false, error }
+      return {
+        success: false,
+        error: `File '${filePath}' is invalid! ${error}`
+      }
     }
   }
   return { success: true, error: undefined }
