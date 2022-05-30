@@ -1,6 +1,6 @@
 {
   "name": "@devgioele/winged",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "A blazingly fast GeoJSONL processor to group features",
   "license": "LGPL-3.0-or-later",
   "keywords": [
