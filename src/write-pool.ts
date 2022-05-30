@@ -27,7 +27,6 @@ export default class WritePool {
    * if there is none open yet. */
   private getWriteStream(filePath: string): BufferedWriteStream {
     let stream = this.writeStreams[filePath]
-    // TODO investigation: `this.writeStreams` is not thread safe and it might be that this causes a new stream to be created, even if another thread already created one for this file.
     if (!stream) {
       // Create directory
       mkdirSync(path.dirname(filePath), { recursive: true })
