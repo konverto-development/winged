@@ -49,7 +49,7 @@ test('One to many - us', async () => {
   expect(malformedVectorFiles.length).toBe(0)
 })
 
-test('Many to one - simple', async () => {
+test('Many to many - simple', async () => {
   const name = 'simple'
   const [generatedFiles, malformedVectorFiles] = await groupFeatures(
     [
