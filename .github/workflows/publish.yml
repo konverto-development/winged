@@ -9,6 +9,8 @@ on:
       - package.json
       # Tests were changed and may be passed now
       - __tests__/**/*
+      # This workflow changed
+      - .github/workflows/publish.yml
 
 jobs:
   # Make sure build/ci work properly
@@ -42,7 +44,7 @@ jobs:
         run: yarn test
       - name: Set config for publishing
         run: |
-          yarn config set npmAuthToken $GPR_TOKEN
+          yarn config set npmAuthToken $NPM_TOKEN
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish
