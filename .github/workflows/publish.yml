@@ -13,7 +13,6 @@ on:
       - .github/workflows/publish.yml
 
 jobs:
-  # Make sure build/ci work properly
   publish:
     name: Publish
     runs-on: ubuntu-latest
@@ -25,8 +24,6 @@ jobs:
         with:
           node-version: 16
       - run: corepack enable
-      - name: Check release definitions
-        run: yarn version check
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
