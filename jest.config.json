@@ -7,11 +7,6 @@
     "**/?(*.)+(spec|test).[jt]s?(x)"
   ],
   "transform": {
-    "^.+\\.(t|j)sx?$": "ts-jest"
-  },
-  "globals": {
-    "ts-jest": {
-      "tsconfig": "tsconfig.json"
-    }
+    "^.+\\.(t|j)sx?$": "@swc/jest"
   }
 }
