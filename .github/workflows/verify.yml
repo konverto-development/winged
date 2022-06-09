@@ -5,9 +5,13 @@ on:
     branches:
       - main
     paths:
+      # There might be a new version to be published
       - package.json
+      # Tests changed and may pass now
       - __tests__/**/*
+      # Samples changed and tests may pass now
       - samples/**/*
+      # Source code changed and tests may pass now
       - src/**/*
 
 jobs:

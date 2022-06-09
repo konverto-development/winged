@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-      # New version to be published
+      # There might be a new version to be published
       - package.json
-      # Tests were changed and may be passed now
+      # Tests changed and may pass now
       - __tests__/**/*
-      # This workflow changed
-      - .github/workflows/publish.yml
+      # Samples used for testing changed
+      - samples/**/*
 
 jobs:
   publish:
